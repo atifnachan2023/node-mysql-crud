@@ -21,8 +21,8 @@ connection.connect((err) => {
 });
 
 // Routes
-app.get('/books', (req, res) => {
-  connection.query('SELECT * FROM books', (err, results) => {
+app.get('/user', (req, res) => {
+  connection.query('SELECT * FROM user', (err, results) => {
     if (err) throw err;
     res.json(results);
   });
