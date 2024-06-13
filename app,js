@@ -1,0 +1,47 @@
+const express = require('express');
+const mysql = require('mysql2');
+const bodyParser = require('body-parser');
+
+const app = express();
+const port = 4000;
+
+app.use(bodyParser.json());
+
+// MySQL Connection
+const connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'atif1990',
+  database: 'node'
+});
+
+connection.connect((err) => {
+  if (err) throw err;
+  console.log('Connected to MySQL Database!');
+});
+
+// Routes
+app.get('/books', (req, res) => {
+  connection.query('SELECT * FROM books', (err, results) => {
+    if (err) throw err;
+    res.json(results);
+  });
+});
+
+app.post('/user', (req, res) => {
+//  const { id,name } = req.body;
+
+
+const id=req.body.id;
+const name=req.body.name;
+
+  connection.query('INSERT INTO user (id,name) VALUES (?, ?)', [id,name], (err, results) => {
+    if (err) throw err;
+    res.send('Book added successfully');
+  });
+});
+
+// Implement other CRUD operations similarly
+
+app.listen(port,()=>{console.log('server connected'+port);})
+
