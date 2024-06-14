@@ -15,7 +15,7 @@ const SmeeClient = require('smee-client')
 
 const smee = new SmeeClient({
   source: 'https://smee.io/ADMNo3cSf4WWmFS4',
-  target: 'http://localhost:4001',
+  target: 'http://localhost:4001/user/webhook',
   logger: console
 })
 
@@ -63,11 +63,14 @@ const name=req.body.name;
 app.post('/user/webhook', (req, res) => {
 
 
-const payload = JSON.parse(req.body);
+const payload = req.body;
 
 
 console.log(payload);
 
+
+
+res.status(200).send(payload);
 
 
     });
